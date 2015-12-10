@@ -1,0 +1,222 @@
+<html>
+  <head>
+                <meta charset='utf-8'>
+                <style type='text/css'>
+                body {
+                margin: 0;
+                }
+                #main {
+                height: 100%;
+                }
+                </style>
+                </head>
+                <body>
+                <div id='main'></div>
+                <script src='./js/echarts.js'></script>
+                <script type='text/javascript' src='http://api.map.baidu.com/api?v=2.0&ak=q9U1lWgCK1aBGVC1DVWrgWa7'></script>
+                <script src='./js/jquery.min.js'></script>
+                <script>
+
+                (function () {
+                require.config({
+                paths: {
+                echarts:'http://echarts.baidu.com/doc/example/www/js'
+                },
+                packages: [
+                {
+                name: 'BMap',
+                location: './js',
+                main: 'main'
+                }
+                ]
+                });
+
+                require(
+                [
+                'echarts',
+                'BMap',
+                'echarts/chart/map'
+                ],
+                function (echarts, BMapExtension) {
+
+                var BMapExt = new BMapExtension($('#main')[0], BMap, echarts,{
+                enableMapClick: false
+                });
+                var map = BMapExt.getMap();
+                var container = BMapExt.getEchartsContainer();
+
+                var startPoint = {
+                x: 104.114129,
+                y: 37.550339
+                };
+                var point = new BMap.Point(startPoint.x, startPoint.y);
+                map.centerAndZoom(point, 5);
+                map.enableScrollWheelZoom(true);
+                
+
+
+option = {
+  color: ['gold','aqua','lime'],
+  title : {
+    text: 'Footprint-of-jmx',
+    subtext: '足迹',
+    x:'center',
+    textStyle : {
+      color: 'black'
+    }
+  },
+  tooltip : {
+    show: true,
+    trigger: 'item',
+    formatter: function (v) {
+               if(v[2].tooltipValue!=null){
+               return v[2].tooltipValue;
+               }else{
+               return v[1];
+               }
+  }},
+  toolbox: {
+    show : true,
+    orient : 'vertical',
+    x: 'right',
+    y: 'center',
+    feature : {
+      mark : {show: true},
+      dataView : {show: true, readOnly: false},
+      restore : {show: true},
+      saveAsImage : {show: true}
+    }
+  },
+  series : [
+    {
+      type:'map',
+      mapType: 'none',
+      data:[]
+      
+  ,markLine : {
+    Symbol:['none', 'arrow'],
+    symbolSize:['2', '4'],
+    smooth:true,
+    smooth:0.2,
+    effect : {
+      show: true,
+      scaleSize: 1,
+      period: 30,
+      color: '#fff',
+      shadowBlur: 10
+    },
+    itemStyle : {
+      color: 'red',
+      normal: {
+        color:function(param){
+      return(param.data[0].value.colorValue);
+  },
+        borderWidth:1,
+        lineStyle: {
+          type: 'solid',
+          width: 1,
+          shadowBlur: 10
+        },
+        label:{show:false}
+      }
+    },
+
+    data : [[{name:'北京'}, {name:'长春',value:{colorValue:'aqua'}}],
+[{name:'长春'}, {name:'北京',value:{colorValue:'lime'}}],
+[{name:'郑州'}, {name:'北京',value:{colorValue:'#ff3333'}}],
+[{name:'北京'}, {name:'郑州',value:{colorValue:'orange'}}],
+[{name:'北京'}, {name:'郑州',value:{colorValue:'aqua'}}],
+[{name:'北京'}, {name:'郑州',value:{colorValue:'lime'}}],
+[{name:'郑州'}, {name:'北京',value:{colorValue:'aqua'}}],
+[{name:'北京'}, {name:'磐石',value:{colorValue:'lime'}}],
+[{name:'磐石'}, {name:'北京',value:{colorValue:'yellow'}}],
+[{name:'北京'}, {name:'郑州',value:{colorValue:'#ff3333'}}],
+[{name:'郑州'}, {name:'北京',value:{colorValue:'#ff3333'}}],
+[{name:'郑州'}, {name:'北京',value:{colorValue:'lime'}}],
+[{name:'北京'}, {name:'长春',value:{colorValue:'lime'}}],
+[{name:'长春'}, {name:'北京',value:{colorValue:'aqua'}}],
+[{name:'上海'}, {name:'郑州',value:{colorValue:'#ff3333'}}],
+[{name:'孝感'}, {name:'郑州',value:{colorValue:'#ff3333'}}],
+[{name:'北京'}, {name:'郑州',value:{colorValue:'orange'}}],
+[{name:'北京'}, {name:'郑州',value:{colorValue:'orange'}}],
+[{name:'郑州'}, {name:'信阳',value:{colorValue:'yellow'}}],
+[{name:'郑州'}, {name:'孝感',value:{colorValue:'yellow'}}],
+[{name:'孝感'}, {name:'郑州',value:{colorValue:'orange'}}],
+[{name:'郑州'}, {name:'北京',value:{colorValue:'lime'}}],
+[{name:'郑州'}, {name:'北京',value:{colorValue:'lime'}}],
+[{name:'孝感'}, {name:'郑州',value:{colorValue:'yellow'}}],
+[{name:'郑州'}, {name:'信阳',value:{colorValue:'#ff3333'}}],
+[{name:'长春'}, {name:'磐石',value:{colorValue:'lime'}}],
+[{name:'磐石'}, {name:'长春',value:{colorValue:'#ff3333'}}],
+[{name:'郑州'}, {name:'贵阳',value:{colorValue:'#ff3333'}}],
+[{name:'贵阳'}, {name:'安顺',value:{colorValue:'yellow'}}],
+[{name:'安顺'}, {name:'贵阳',value:{colorValue:'yellow'}}],
+[{name:'贵州'}, {name:'郑州',value:{colorValue:'lime'}}],
+[{name:'郑州'}, {name:'驻马店',value:{colorValue:'aqua'}}],
+[{name:'郑州'}, {name:'西宁',value:{colorValue:'orange'}}],
+[{name:'西宁'}, {name:'郑州',value:{colorValue:'orange'}}],
+[{name:'西宁'}, {name:'玉树',value:{colorValue:'aqua'}}],
+[{name:'玉树'}, {name:'西宁',value:{colorValue:'aqua'}}],
+[{name:'郑州'}, {name:'民和',value:{colorValue:'lime'}}],
+[{name:'民和'}, {name:'西宁',value:{colorValue:'orange'}}],
+[{name:'郑州'}, {name:'泰安',value:{colorValue:'yellow'}}],
+[{name:'泰安'}, {name:'济南',value:{colorValue:'yellow'}}],
+[{name:'济南'}, {name:'郑州',value:{colorValue:'yellow'}}],
+[{name:'郑州'}, {name:'福州',value:{colorValue:'aqua'}}],
+[{name:'厦门'}, {name:'郑州',value:{colorValue:'yellow'}}],
+[{name:'福州'}, {name:'厦门',value:{colorValue:'yellow'}}],
+[{name:'郑州'}, {name:'凤凰',value:{colorValue:'yellow'}}],
+[{name:'凤凰'}, {name:'张家界',value:{colorValue:'aqua'}}],
+[{name:'张家界'}, {name:'郑州',value:{colorValue:'orange'}}],
+[{name:'郑州'}, {name:'南京',value:{colorValue:'lime'}}],
+[{name:'南京'}, {name:'无锡',value:{colorValue:'#ff3333'}}],
+[{name:'无锡'}, {name:'南京',value:{colorValue:'aqua'}}],
+[{name:'南京'}, {name:'郑州',value:{colorValue:'yellow'}}],
+[{name:'郑州'}, {name:'西安',value:{colorValue:'aqua'}}],
+[{name:'西安'}, {name:'郑州',value:{colorValue:'yellow'}}],
+[{name:'郑州'}, {name:'洛阳',value:{colorValue:'aqua'}}],
+[{name:'洛阳'}, {name:'郑州',value:{colorValue:'yellow'}}]]},
+    geoCoord:{'北京': [116.41355,39.91101],
+'长春': [125.33017,43.82178],
+'郑州': [113.63135,34.75349],
+'磐石': [126.06708,42.95224],
+'上海': [121.48024,31.23631],
+'孝感': [113.92296,30.93071],
+'贵阳': [106.63682,26.65275],
+'安顺': [105.95262,26.25990],
+'贵州': [106.71369,26.60424],
+'西宁': [101.78427,36.62348],
+'玉树': [ 96.67212,32.92269],
+'民和': [102.83725,36.32652],
+'泰安': [117.09489,36.20591],
+'济南': [117.00132,36.67163],
+'厦门': [118.09592,24.48582],
+'福州': [119.30294,26.08045],
+'凤凰': [109.60709,27.95330],
+'张家界': [110.48493,29.12248],
+'南京': [118.80289,32.06473],
+'无锡': [120.31895,31.49670],
+'西安': [108.94631,34.34744],
+'洛阳': [112.46003,34.62438],
+'信阳': [114.09926,32.15319],
+'驻马店': [114.02947,33.01755]
+    }
+  
+      
+
+    },
+    ]
+};
+
+
+var myChart = BMapExt.initECharts(container);
+window.onresize = myChart.onresize;
+BMapExt.setOption(option);
+                }
+                );
+                })();
+</script>
+  </body>
+  </html>
+
+  
